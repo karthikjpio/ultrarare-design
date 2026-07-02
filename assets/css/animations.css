@@ -1,0 +1,86 @@
+/* ============================================================
+   ultrarare.design — animations
+   New file. All motion is gated behind:
+     - @media (prefers-reduced-motion: no-preference)
+     - .anim-ready (added by animations.js) so nothing stays
+       hidden if JS fails to run.
+   Existing hero load sequence + [data-reveal] (main.js) are
+   preserved; this only adds the services choreography, nav
+   compaction, and hover micro-interactions.
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---- Services: scroll reveals ---- */
+  .anim-ready [data-animate] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: var(--anim-delay, 0ms);
+  }
+  .anim-ready [data-animate].in {
+    opacity: 1;
+    transform: none;
+  }
+  /* Left pillar, then right pillar — 150ms apart */
+  .pillars .pillar { --anim-delay: 0ms; }
+  .pillars .pillar:nth-child(2) { --anim-delay: 150ms; }
+
+  /* Individual service items — 80ms apart, when their pillar enters */
+  .anim-ready .svc {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    transition-delay: var(--svc-delay, 0ms);
+  }
+  .anim-ready .svc.in {
+    opacity: 1;
+    transform: none;
+  }
+  .pillar__list .svc:nth-child(1) { --svc-delay: 0ms; }
+  .pillar__list .svc:nth-child(2) { --svc-delay: 80ms; }
+  .pillar__list .svc:nth-child(3) { --svc-delay: 160ms; }
+  .pillar__list .svc:nth-child(4) { --svc-delay: 240ms; }
+
+  /* ---- Hero: nudge the existing reveal into a clearer cascade ---- */
+  .hero__actions[data-reveal] { transition-delay: 0.12s; }
+  .hero__note[data-reveal] { transition-delay: 0.22s; }
+
+  /* ---- Sticky nav: compaction past 60px ---- */
+  .nav {
+    transition: height 0.25s var(--ease-out), background 0.3s var(--ease),
+                border-color 0.3s var(--ease),
+                -webkit-backdrop-filter 0.3s var(--ease),
+                backdrop-filter 0.3s var(--ease);
+  }
+  .nav.scrolled { height: 50px; }
+
+  /* ---- Hover micro-interactions ---- */
+  .pillar {
+    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease),
+                box-shadow 0.2s var(--ease);
+  }
+  .pillar:hover { transform: translateY(-4px); }
+
+  .svc::before { transition: height 0.2s var(--ease-out); }
+  .svc__title { transition: color 0.18s var(--ease), transform 0.18s var(--ease-out); }
+  .svc:hover .svc__title { transform: translateX(2px); }
+
+  /* ---- Build → ship narrative smoothing ---- */
+  .ship-fill { transition: transform 0.1s linear; }
+  .ship-runner { transition: left 0.1s linear; }
+  .build-status__label { transition: color 0.3s var(--ease); }
+}
+
+/* Scroll-driven indicators + drifting lights are decorative motion —
+   freeze them for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ship-track,
+  .build-status { display: none; }
+  .ambient__glow { animation: none !important; transform: none !important; }
+}
+
+/* ---- Hover states that are safe with or without motion ---- */
+.pillar:hover { border-color: rgba(255, 255, 255, 0.20); }
+.svc:hover::before { height: 64%; }
+.svc:hover .svc__title { color: var(--p-accent); }

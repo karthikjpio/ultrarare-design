@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ultrarare.design — Demo-first web design</title>
+  <meta name="description" content="Don't have a website? I'll design a free demo of your site. Like it, and I ship the full thing in 48 hours." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235e6ad2'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/glass.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/enhance.css" />
+</head>
+<body id="top">
+
+  <!-- Booking link used everywhere: https://topmate.io/karthikjp/ -->
+
+  <!-- Fixed ambient lights (parallax behind the frosted glass) -->
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient__glow g1"></span>
+    <span class="ambient__glow g2"></span>
+    <span class="ambient__glow g3"></span>
+  </div>
+
+  <!-- Scroll-driven build → ship narrative: a runner who finishes the work -->
+  <div class="ship-track" aria-hidden="true">
+    <span class="ship-fill"></span>
+    <span class="ship-runner">
+      <svg class="runner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="runner__head" cx="14" cy="4.5" r="1.7" fill="currentColor" stroke="none" />
+        <path class="runner__body" d="M14 7 L11.8 13" />
+        <path class="runner__arms" d="M12.5 9 L8.8 8.2 M12.5 9 L16 11" />
+        <path class="runner__arms runner__arms--up" d="M12.5 9 L9 6 M12.5 9 L16 6" />
+        <g class="runner__legs runner__legs--a"><path d="M11.8 13 L9 18 M11.8 13 L15 16.5" /></g>
+        <g class="runner__legs runner__legs--b"><path d="M11.8 13 L14 18 M11.8 13 L8.8 16" /></g>
+      </svg>
+    </span>
+    <span class="ship-flag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 21 V4" /><path d="M6 4 H15 L13 7.5 L15 11 H6" />
+      </svg>
+    </span>
+  </div>
+  <div class="build-status" aria-hidden="true">
+    <span class="build-status__runner">
+      <svg class="runner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="runner__head" cx="14" cy="4.5" r="1.7" fill="currentColor" stroke="none" />
+        <path class="runner__body" d="M14 7 L11.8 13" />
+        <path class="runner__arms" d="M12.5 9 L8.8 8.2 M12.5 9 L16 11" />
+        <path class="runner__arms runner__arms--up" d="M12.5 9 L9 6 M12.5 9 L16 6" />
+        <g class="runner__legs runner__legs--a"><path d="M11.8 13 L9 18 M11.8 13 L15 16.5" /></g>
+        <g class="runner__legs runner__legs--b"><path d="M11.8 13 L14 18 M11.8 13 L8.8 16" /></g>
+      </svg>
+    </span>
+    <span class="build-status__label">Brief</span>
+    <span class="build-status__pct">0%</span>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a class="wordmark" href="#top" aria-label="ultrarare.design home">ultrarare<span class="wordmark__accent">.design</span></a>
+
+      <nav class="nav__menu" id="navMenu" aria-label="Primary">
+        <a class="nav__link" href="#services">Services</a>
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link" href="#process">How it works</a>
+        <a class="btn btn--primary btn--sm" href="https://topmate.io/karthikjp/" target="_blank" rel="noopener" data-magnetic>Book a demo</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="eyebrow hero__eyebrow"><span class="eyebrow__dot"></span>Rare by design</p>
+
+        <h1 class="hero__title">
+          <span class="line"><span class="line__inner">Don't have a website?</span></span>
+          <span class="line"><span class="line__inner">Let's fix that!</span></span>
+        </h1>
+
+        <p class="hero__sub" data-reveal>I'll design a free demo of your site. Like it, and I ship the full thing in 48 hours.</p>
+
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary btn--lg" href="https://topmate.io/karthikjp/" target="_blank" rel="noopener" data-magnetic>Book a free demo</a>
+          <a class="btn btn--secondary btn--lg" href="#work">See the work</a>
+        </div>
+
+        <p class="hero__note" data-reveal>Free demo first · No commitment until you love it</p>
+      </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section class="section services" id="services">
+      <div class="container">
+        <header class="section__head services__head">
+          <p class="eyebrow" data-animate><span class="eyebrow__dot"></span>My Services</p>
+          <h2 class="section__title" data-animate>A unique blend of creative branding and intelligent automation.</h2>
+          <p class="services__sub" data-animate>Two distinct disciplines, one singular focus: your growth.</p>
+        </header>
+
+        <div class="pillars">
+
+          <article class="pillar pillar--brand" data-animate>
+            <div class="pillar__top">
+              <span class="pillar__num">01</span>
+              <span class="pillar__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                  <path d="M12 3.5l1.7 4.6 4.6 1.7-4.6 1.7L12 16.1l-1.7-4.6L5.7 9.8l4.6-1.7z" />
+                  <path d="M18.6 14.4l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7z" />
+                </svg>
+              </span>
+            </div>
+            <h3 class="pillar__title">Brand &amp; Design</h3>
+            <p class="pillar__tagline">We build strong, cohesive brands and powerful digital identities that convert.</p>
+            <ul class="pillar__list">
+              <li class="svc">
+                <h4 class="svc__title">Strategic Branding</h4>
+                <p class="svc__desc">Developing foundational brand narratives, positioning, and voice that cut through the noise.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">Visual Identity</h4>
+                <p class="svc__desc">Crafting memorable logos, typography systems, and comprehensive visual languages.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">UI/UX Design</h4>
+                <p class="svc__desc">Designing intuitive, user-centric web experiences that prioritize clarity and conversion.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">Creative Direction</h4>
+                <p class="svc__desc">Guiding holistic brand campaigns and art direction for maximum market impact.</p>
+              </li>
+            </ul>
+          </article>
+
+          <article class="pillar pillar--ai" data-animate>
+            <div class="pillar__top">
+              <span class="pillar__num">02</span>
+              <span class="pillar__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="7" y="7" width="10" height="10" rx="1.5" />
+                  <rect x="10.5" y="10.5" width="3" height="3" />
+                  <path d="M10 7V4M14 7V4M10 20v-3M14 20v-3M7 10H4M7 14H4M20 10h-3M20 14h-3" />
+                </svg>
+              </span>
+            </div>
+            <h3 class="pillar__title">AI Automation</h3>
+            <p class="pillar__tagline">We streamline operations and scale intelligently using next-gen automation.</p>
+            <ul class="pillar__list">
+              <li class="svc">
+                <h4 class="svc__title">AI Strategy</h4>
+                <p class="svc__desc">Analyzing operations to define how artificial intelligence can transform your business.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">Workflow Automation</h4>
+                <p class="svc__desc">Building intelligent systems to automate repetitive tasks in CRM, sales, and support.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">Tool Integration</h4>
+                <p class="svc__desc">Seamlessly connecting your tech stack with modern AI tools like ChatGPT and Zapier.</p>
+              </li>
+              <li class="svc">
+                <h4 class="svc__title">Custom Agents</h4>
+                <p class="svc__desc">Developing tailored AI agents for specialized internal tasks and data processing.</p>
+              </li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== How it works ===== -->
+    <section class="section" id="process">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal>Process</p>
+          <h2 class="section__title" data-reveal>Three steps. Zero risk.</h2>
+        </header>
+
+        <ol class="steps stagger">
+          <li class="card step" data-reveal>
+            <span class="step__num">01</span>
+            <h3 class="card__title">Request</h3>
+            <p class="card__body">Book a quick call and tell me about your business.</p>
+          </li>
+          <li class="card step" data-reveal>
+            <span class="step__num">02</span>
+            <h3 class="card__title">Free demo</h3>
+            <p class="card__body">I design a real, working preview of your site. No cost, no commitment.</p>
+          </li>
+          <li class="card step" data-reveal>
+            <span class="step__num">03</span>
+            <h3 class="card__title">Ship in 48 hours</h3>
+            <p class="card__body">Happy with it? Your full site goes live within 48 hours.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Work ===== -->
+    <section class="section" id="work">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal>Selected work</p>
+          <h2 class="section__title" data-reveal>A few sites I've built.</h2>
+        </header>
+
+        <div class="work stagger">
+
+          <!-- Real: Parivartane -->
+          <a class="work-card" href="https://parivartane.ultrarare.design" target="_blank" rel="noopener noreferrer" data-tilt data-reveal data-cursor-label="Visit site ↗" aria-label="Parivartane — transformation brand">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">parivartane.ultrarare.design</span>
+              </div>
+              <div class="browser__view mock mock--parivartane">
+                <div class="mock__nav"><span class="mock__logo"></span><span class="mock__navlinks"><i></i><i></i><i></i></span></div>
+                <div class="mock__pv-hero">
+                  <span class="mock__pv-tag"></span>
+                  <span class="mock__h1"></span>
+                  <span class="mock__h1 mock__h1--short"></span>
+                  <span class="mock__line"></span>
+                  <span class="mock__btn"></span>
+                </div>
+              </div>
+              <div class="browser__overlay"><span>Visit site <span class="arrow">↗</span></span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">Parivartane</h3>
+                <span class="work-card__cat">Brand &amp; web</span>
+              </div>
+            </div>
+            <p class="work-card__desc">Design &amp; code for a transformation-focused brand, built on the ultrarare system.</p>
+          </a>
+
+          <!-- Real: SGR Decorators -->
+          <a class="work-card" href="https://sgrdecorators.com" target="_blank" rel="noopener noreferrer" data-tilt data-reveal data-cursor-label="Visit site ↗" aria-label="SGR Decorators — interior design">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">sgrdecorators.com</span>
+              </div>
+              <div class="browser__view mock mock--decorators">
+                <div class="mock__nav"><span class="mock__logo"></span><span class="mock__navlinks"><i></i><i></i><i></i></span></div>
+                <span class="mock__h1"></span>
+                <div class="mock__deco-grid">
+                  <span class="mock__deco-tall"></span>
+                  <div class="mock__deco-col"><span></span><span></span></div>
+                </div>
+              </div>
+              <div class="browser__overlay"><span>Visit site <span class="arrow">↗</span></span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">SGR Decorators</h3>
+                <span class="work-card__cat">Interior design</span>
+              </div>
+            </div>
+            <p class="work-card__desc">Portfolio and enquiry site for a full-service interior decoration studio.</p>
+          </a>
+
+          <!-- Real: Karthik Javanappa -->
+          <a class="work-card" href="https://karthikjavanappa.com" target="_blank" rel="noopener noreferrer" data-tilt data-reveal data-cursor-label="Visit site ↗" aria-label="Karthik Javanappa — personal portfolio">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">karthikjavanappa.com</span>
+              </div>
+              <div class="browser__view mock mock--portfolio">
+                <div class="mock__nav"><span class="mock__logo mock__logo--wide"></span><span class="mock__navlinks"><i></i><i></i><i></i></span></div>
+                <div class="mock__port-hero">
+                  <span class="mock__h1"></span>
+                  <span class="mock__h1 mock__h1--short"></span>
+                  <span class="mock__line"></span>
+                  <span class="mock__btn"></span>
+                </div>
+                <div class="mock__port-grid"><span></span><span></span></div>
+              </div>
+              <div class="browser__overlay"><span>Visit site <span class="arrow">↗</span></span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">Karthik Javanappa</h3>
+                <span class="work-card__cat">Portfolio</span>
+              </div>
+            </div>
+            <p class="work-card__desc">Personal portfolio and digital presence for a designer-developer.</p>
+          </a>
+
+          <!-- Real: Satter -->
+          <a class="work-card" href="https://satter.info" target="_blank" rel="noopener noreferrer" data-tilt data-reveal data-cursor-label="Visit site ↗" aria-label="Satter — opera singer artistic concept">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">satter.info</span>
+              </div>
+              <div class="browser__view mock mock--opera">
+                <span class="mock__rule"></span>
+                <span class="mock__h1 mock__h1--center"></span>
+                <span class="mock__h1 mock__h1--center mock__h1--short"></span>
+                <span class="mock__opera-sub"></span>
+                <span class="mock__rule"></span>
+              </div>
+              <div class="browser__overlay"><span>Visit site <span class="arrow">↗</span></span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">Satter</h3>
+                <span class="work-card__cat">Artistic concept</span>
+              </div>
+            </div>
+            <p class="work-card__desc">Minimalist artistic concept site for a celebrated German opera singer.</p>
+          </a>
+
+          <!-- Coming soon: Corner & Bean -->
+          <a class="work-card" href="#" data-tilt data-reveal aria-label="Corner &amp; Bean — café, coming soon">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">cornerandbean.com</span>
+              </div>
+              <div class="browser__view mock mock--cafe">
+                <div class="mock__nav"><span class="mock__logo"></span><span class="mock__navlinks"><i></i><i></i><i></i></span></div>
+                <div class="mock__hero">
+                  <span class="mock__h1"></span>
+                  <span class="mock__h1 mock__h1--short"></span>
+                  <span class="mock__line"></span>
+                  <span class="mock__btn"></span>
+                </div>
+                <div class="mock__tiles"><span></span><span></span></div>
+              </div>
+              <div class="browser__overlay"><span>Coming soon</span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">Corner &amp; Bean</h3>
+                <span class="work-card__cat">Café</span>
+              </div>
+            </div>
+            <p class="work-card__desc">Menu, story, and online ordering for a neighborhood café.</p>
+          </a>
+
+          <!-- Coming soon: AdaptFit -->
+          <a class="work-card" href="#" data-tilt data-reveal aria-label="AdaptFit — AI fitness agent, coming soon">
+            <div class="browser">
+              <div class="browser__bar">
+                <span class="browser__dots"><i></i><i></i><i></i></span>
+                <span class="browser__url">adaptfit.ai</span>
+              </div>
+              <div class="browser__view mock mock--adaptfit">
+                <div class="mock__nav"><span class="mock__logo"></span><span class="mock__navlinks"><i></i><i></i><i></i></span></div>
+                <div class="mock__fit-hero">
+                  <span class="mock__accent-pill"></span>
+                  <span class="mock__h1"></span>
+                  <span class="mock__h1 mock__h1--short"></span>
+                  <span class="mock__line"></span>
+                </div>
+                <div class="mock__fit-metrics"><span></span><span></span><span></span></div>
+              </div>
+              <div class="browser__overlay"><span>Coming soon</span></div>
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__heading">
+                <h3 class="work-card__title">AdaptFit</h3>
+                <span class="work-card__cat">AI fitness agent</span>
+              </div>
+            </div>
+            <p class="work-card__desc">AI-powered fitness coaching agent that adapts training plans in real time.</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why me ===== -->
+    <section class="section" id="why">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow" data-reveal>Why ultrarare</p>
+          <h2 class="section__title" data-reveal>Design that earns its keep.</h2>
+        </header>
+
+        <div class="features stagger">
+          <div class="card feature" data-reveal>
+            <h3 class="card__title">Demo before you pay</h3>
+            <p class="card__body">You see the real thing first. No deposits, no risk.</p>
+          </div>
+          <div class="card feature" data-reveal>
+            <h3 class="card__title">Live in 48 hours</h3>
+            <p class="card__body">Once you're in, your site ships fast.</p>
+          </div>
+          <div class="card feature" data-reveal>
+            <h3 class="card__title">Designed to convert</h3>
+            <p class="card__body">Clean, fast, and built to turn visitors into customers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Marquee ===== -->
+    <section class="marquee-band" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee__track">
+          <div class="marquee__group">
+            <span>Rare by design</span><i>✦</i>
+            <span>Demo-first</span><i>✦</i>
+            <span>Shipped in 48 hours</span><i>✦</i>
+            <span>Built to convert</span><i>✦</i>
+          </div>
+          <div class="marquee__group">
+            <span>Rare by design</span><i>✦</i>
+            <span>Demo-first</span><i>✦</i>
+            <span>Shipped in 48 hours</span><i>✦</i>
+            <span>Built to convert</span><i>✦</i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Closing CTA ===== -->
+    <section class="section section--cta">
+      <div class="container">
+        <div class="cta-banner" data-reveal>
+          <h2 class="cta-banner__title">Ready to see your site?</h2>
+          <p class="cta-banner__sub">Book a free 15-minute call. You'll walk away with a demo, not a sales pitch.</p>
+          <a class="btn btn--primary btn--lg" href="https://topmate.io/karthikjp/" target="_blank" rel="noopener" data-magnetic>Book a free demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a class="wordmark" href="#top">ultrarare<span class="wordmark__accent">.design</span></a>
+        <p class="footer__tag">Rare by design.</p>
+      </div>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">How it works</a>
+        <a href="https://topmate.io/karthikjp/" target="_blank" rel="noopener">Book a demo</a>
+      </nav>
+      <p class="footer__copy">© 2026 ultrarare.design</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
+  <script src="assets/js/enhance.js" defer></script>
+</body>
+</html>
