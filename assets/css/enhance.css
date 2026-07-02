@@ -1,0 +1,122 @@
+/* ============================================================
+   ultrarare.design — KOTA-inspired enhancements
+   New file. Smooth scroll (Lenis) base CSS, custom cursor,
+   marquee strip, and masked heading reveals.
+   Motion gated behind prefers-reduced-motion + .enh-ready
+   (added by enhance.js) so nothing breaks without JS.
+   ============================================================ */
+
+/* ===== Lenis smooth scroll (recommended base CSS) ===== */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* ===== Custom cursor ===== */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor .work-card { cursor: none; }
+
+.cursor {
+  position: fixed; top: 0; left: 0; z-index: 300;
+  width: 12px; height: 12px;
+  margin: 0; border-radius: var(--r-pill);
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  will-change: transform;
+  transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out),
+              background 0.25s var(--ease), opacity 0.2s var(--ease);
+}
+.cursor__label {
+  font-size: 12px; font-weight: 500; letter-spacing: -0.1px;
+  color: #fff; white-space: nowrap;
+  opacity: 0; transform: scale(0.6);
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease-out);
+}
+.cursor--view { width: 104px; height: 48px; background: var(--primary); }
+.cursor--view .cursor__label { opacity: 1; transform: scale(1); }
+.cursor--hidden { opacity: 0; }
+
+/* ===== Marquee strip ===== */
+.marquee-band {
+  overflow: hidden;
+  padding-block: var(--s-xl);
+  border-block: 1px solid var(--hairline);
+}
+.marquee { overflow: hidden; }
+.marquee__track {
+  display: flex; width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__group {
+  display: flex; align-items: center; gap: var(--s-lg);
+  padding-right: var(--s-lg);
+  flex-shrink: 0;
+}
+.marquee__group span {
+  font-size: clamp(22px, 3.6vw, 38px);
+  font-weight: 600; letter-spacing: -1px;
+  color: var(--ink);
+}
+.marquee__group i { color: var(--primary); font-style: normal; font-size: 18px; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ===== Masked heading reveals + reduced-motion guards ===== */
+@media (prefers-reduced-motion: no-preference) {
+  /* Neutralise the existing fade so only the masked words animate */
+  .enh-ready .section__title[data-reveal],
+  .enh-ready .section__title[data-animate],
+  .enh-ready .cta-banner__title[data-reveal] {
+    opacity: 1; transform: none;
+  }
+  .rh .rw {
+    display: inline-block; overflow: hidden; vertical-align: top;
+    padding-bottom: 0.12em; margin-bottom: -0.12em;
+  }
+  .rh .rw__i {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 0.7s var(--ease-out);
+    transition-delay: var(--wd, 0ms);
+  }
+  .rh.is-revealed .rw__i { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ===== New mock site thumbnails ===== */
+
+/* Parivartane (transformation brand) */
+.mock--parivartane .mock__pv-hero { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.mock__pv-tag { display: block; height: 8px; width: 44px; border-radius: var(--r-pill); background: var(--primary); opacity: 0.6; }
+
+/* SGR Decorators (interior design — photo-heavy masonry grid) */
+.mock--decorators .mock__deco-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 6px; flex: 1; }
+.mock--decorators .mock__deco-tall { border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline); }
+.mock--decorators .mock__deco-col { display: flex; flex-direction: column; gap: 6px; }
+.mock--decorators .mock__deco-col span { flex: 1; border-radius: 6px; background: var(--surface-1); border: 1px solid var(--hairline); }
+
+/* Karthik Javanappa (personal portfolio) */
+.mock__logo--wide { width: 44px; }
+.mock--portfolio .mock__port-hero { display: flex; flex-direction: column; gap: 7px; }
+.mock--portfolio .mock__port-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: auto; }
+.mock--portfolio .mock__port-grid span { aspect-ratio: 16/9; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline); }
+
+/* Satter (opera singer — stark, centred, minimal) */
+.mock--opera { justify-content: center; gap: 14px; }
+.mock__rule { display: block; width: 100%; height: 1px; background: var(--hairline-strong); }
+.mock__opera-sub { display: block; height: 5px; width: 50%; border-radius: 3px; background: var(--hairline-strong); margin-inline: auto; }
+
+/* AdaptFit (AI fitness agent) */
+.mock--adaptfit .mock__fit-hero { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.mock__accent-pill { display: block; height: 8px; width: 38px; border-radius: var(--r-pill); background: var(--primary); opacity: 0.7; }
+.mock--adaptfit .mock__fit-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: auto; }
+.mock--adaptfit .mock__fit-metrics span { height: 28px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline); }

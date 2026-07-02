@@ -1,0 +1,289 @@
+/* ============================================================
+   ultrarare.design — services section + glassmorphism
+   New file. Loaded after styles.css. Existing CSS is untouched;
+   all overrides win by source order / specificity.
+   Static layout + glass live here. Motion lives in animations.css.
+   ============================================================ */
+
+/* ===== Services section — layout & type (matches existing scale) ===== */
+.services { position: relative; }
+.services .section__head { max-width: 720px; }
+.services__sub {
+  margin-top: var(--s-md);
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+  color: var(--ink-subtle);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-lg);
+}
+
+.pillar {
+  --p-accent: var(--primary);
+  position: relative;
+  border-radius: var(--r-lg);
+  padding: var(--s-xl);
+  /* Fallback surface — replaced by glass under @supports below */
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+}
+.pillar--ai { --p-accent: #828fff; }
+
+.pillar__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--s-lg);
+}
+.pillar__num {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: rgba(94, 106, 210, 0.30);
+}
+.pillar--ai .pillar__num { color: rgba(130, 143, 255, 0.30); }
+
+.pillar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  color: var(--p-accent);
+}
+.pillar__icon svg { width: 22px; height: 22px; display: block; }
+.pillar--brand .pillar__icon {
+  background: rgba(94, 106, 210, 0.14);
+  border: 1px solid rgba(94, 106, 210, 0.30);
+}
+.pillar--ai .pillar__icon {
+  background: transparent;
+  border: 1px solid rgba(130, 143, 255, 0.42);
+}
+
+.pillar__title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+.pillar__tagline {
+  margin-top: var(--s-xs);
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.pillar__list {
+  margin-top: var(--s-xl);
+  display: flex;
+  flex-direction: column;
+}
+.svc {
+  position: relative;
+  padding: var(--s-md) 0 var(--s-md) var(--s-md);
+  border-top: 1px solid var(--hairline);
+}
+.svc::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 50%;
+  width: 2px; height: 0;
+  transform: translateY(-50%);
+  background: var(--p-accent);
+  border-radius: 2px;
+}
+.svc__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: var(--ink);
+}
+.svc__desc {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-subtle);
+}
+
+@media (max-width: 768px) {
+  .pillars { grid-template-columns: 1fr; }
+  .pillar { padding: var(--s-lg); }
+}
+
+/* ===== Ambient lights — fixed behind everything, parallax via JS =====
+   Flat #010102 gives glass nothing to refract. These soft, fixed lights
+   sit behind all content (z-index:-1), so every glass surface (nav,
+   pillar cards, status pill) reveals them drifting through the frost as
+   you scroll. animations.js gently parallaxes them for extra depth. */
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.ambient__glow { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
+.ambient__glow.g1 { width: 520px; height: 520px; left: -7%; top: 6%;
+  background: radial-gradient(circle, rgba(94, 106, 210, 0.20), transparent 70%);
+  animation: driftA 24s ease-in-out infinite alternate; }
+.ambient__glow.g2 { width: 580px; height: 580px; right: -9%; top: 40%;
+  background: radial-gradient(circle, rgba(130, 143, 255, 0.16), transparent 70%);
+  animation: driftB 30s ease-in-out infinite alternate; }
+.ambient__glow.g3 { width: 460px; height: 460px; left: 16%; bottom: -8%;
+  background: radial-gradient(circle, rgba(94, 106, 210, 0.14), transparent 70%);
+  animation: driftC 21s ease-in-out infinite alternate; }
+
+/* Slow horizontal sweep — lights drift across left↔right (and the frosted
+   glass scrolling over them still reveals them passing through). */
+@keyframes driftA { from { transform: translate3d(-3vw, 0, 0); } to { transform: translate3d(8vw, 0, 0); } }
+@keyframes driftB { from { transform: translate3d(5vw, 0, 0); } to { transform: translate3d(-7vw, 0, 0); } }
+@keyframes driftC { from { transform: translate3d(-2vw, 0, 0); } to { transform: translate3d(10vw, 0, 0); } }
+
+/* ===== Build → ship narrative — a runner who builds & ships =====
+   Scroll-driven via --progress on :root. A runner travels the top track
+   toward a finish flag; the bottom pill mirrors the current stage. */
+.ship-track {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 2px;
+  z-index: 200; pointer-events: none;
+}
+.ship-fill {
+  position: absolute; top: 0; left: 0; height: 100%; width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+}
+.ship-runner {
+  position: absolute; top: 2px;
+  left: calc(var(--progress, 0) * (100vw - 28px) + 14px);
+  transform: translateX(-50%);
+  color: var(--primary);
+}
+.ship-runner .runner { width: 15px; height: 15px; }
+.ship-flag { position: absolute; top: 1px; right: 8px; color: var(--ink-tertiary); }
+.ship-flag svg { width: 14px; height: 14px; display: block; }
+.ship-track.is-shipped .ship-flag { color: var(--primary); }
+
+/* Runner figure — shared by the top track and the status pill */
+.runner { display: block; animation: runnerBob 0.34s ease-in-out infinite; }
+.runner__legs--a { animation: legsA 0.34s steps(1, end) infinite; }
+.runner__legs--b { animation: legsB 0.34s steps(1, end) infinite; opacity: 0; }
+.runner__arms--up { display: none; }
+.is-shipped .runner { animation-play-state: paused; }
+.is-shipped .runner__legs--a { animation: none; opacity: 1; }
+.is-shipped .runner__legs--b { animation: none; opacity: 0; }
+.is-shipped .runner__arms { display: none; }
+.is-shipped .runner__arms--up { display: block; }
+
+@keyframes runnerBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.4px); } }
+@keyframes legsA { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes legsB { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
+
+/* Status pill — the "below widget" */
+.build-status {
+  position: fixed; right: 20px; bottom: 20px; z-index: 80;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 7px 13px 7px 9px;
+  border-radius: var(--r-pill);
+  pointer-events: none;
+  background: var(--surface-2);            /* fallback (no backdrop-filter) */
+  border: 1px solid var(--hairline);
+}
+.build-status__runner { display: inline-flex; color: var(--primary); }
+.build-status__runner .runner { width: 18px; height: 18px; }
+.build-status__label { font-size: 13px; font-weight: 500; letter-spacing: -0.1px; color: var(--ink); }
+.build-status.is-shipped .build-status__label { color: var(--primary); }
+.build-status__pct { font-family: var(--font-mono); font-size: 12px; color: var(--ink-subtle); }
+
+@media (max-width: 600px) {
+  .build-status { right: 14px; bottom: 14px; padding: 6px 11px 6px 8px; }
+  .build-status__pct { display: none; }
+}
+
+/* ===== Glass treatment (graceful fallback when unsupported) ===== */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+
+  /* 1 — Sticky nav: frosted dark glass */
+  .nav.is-scrolled,
+  .nav.scrolled {
+    background: rgba(8, 9, 12, 0.55);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .nav.scrolled {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+                0 10px 30px -18px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Mobile menu panel: frosted glass (only when it's the dropdown) */
+  @media (max-width: 768px) {
+    .nav__menu {
+      background: rgba(8, 9, 12, 0.7);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  /* 2 — Service pillar cards: frosted glass */
+  .pillar {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* 3 — Build-status pill: frosted glass */
+  .build-status {
+    background: rgba(8, 9, 12, 0.5);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* 4 — Process steps + Why-me cards (.card): frosted glass */
+  .card {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+  .card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  /* 5 — Selected-work cards: frosted glass frame (screenshot stays opaque-ish) */
+  .browser {
+    background: rgba(255, 255, 255, 0.045);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .browser__bar {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom-color: rgba(255, 255, 255, 0.10);
+  }
+  .browser__view { background: rgba(255, 255, 255, 0.02); }
+  .browser__url { background: rgba(0, 0, 0, 0.28); }
+
+  /* 6 — Closing CTA banner: frosted glass */
+  .cta-banner {
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+}
