@@ -120,3 +120,171 @@ html.has-cursor .work-card { cursor: none; }
 .mock__accent-pill { display: block; height: 8px; width: 38px; border-radius: var(--r-pill); background: var(--primary); opacity: 0.7; }
 .mock--adaptfit .mock__fit-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: auto; }
 .mock--adaptfit .mock__fit-metrics span { height: 28px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline); }
+
+/* GetMoca (moments calendar app) */
+.mock--moca .mock__moca-hero { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.mock--moca .mock__moca-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+.mock--moca .mock__moca-cards span { aspect-ratio: 16 / 10; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--hairline); }
+
+/* ============================================================
+   Colored preview tints — each project keyed to a brand accent.
+   color-mix keeps them subtle; unsupported browsers fall back to
+   the plain skeletons above.
+   ============================================================ */
+.mock--parivartane { --mock: #e0a458; } /* warm / transformation */
+.mock--decorators  { --mock: #d1567f; } /* rose / events */
+.mock--moca        { --mock: #f2765e; } /* coral / moments */
+.mock--portfolio   { --mock: #5e6ad2; } /* indigo / personal */
+.mock--opera       { --mock: #c9a24b; } /* gold / stage */
+.mock--adaptfit    { --mock: #57c785; } /* green / fitness */
+
+[class*="mock--"] {
+  background:
+    radial-gradient(130% 110% at 0% 0%,
+      color-mix(in srgb, var(--mock) 16%, var(--canvas)),
+      var(--canvas) 68%);
+}
+[class*="mock--"] .mock__logo { background: var(--mock); }
+[class*="mock--"] .mock__h1 { background: color-mix(in srgb, var(--mock) 42%, var(--ink-muted)); }
+[class*="mock--"] .mock__line { background: color-mix(in srgb, var(--mock) 22%, var(--hairline-strong)); }
+[class*="mock--"] .mock__btn,
+[class*="mock--"] .mock__pv-tag,
+[class*="mock--"] .mock__accent-pill { background: var(--mock); opacity: 1; }
+[class*="mock--"] .mock__tiles span,
+[class*="mock--"] .mock__port-grid span,
+[class*="mock--"] .mock__moca-cards span,
+[class*="mock--"] .mock__gallery span,
+[class*="mock--"] .mock__fit-metrics span,
+[class*="mock--"] .mock__deco-tall,
+[class*="mock--"] .mock__deco-col span {
+  background: color-mix(in srgb, var(--mock) 12%, var(--surface-2));
+  border-color: color-mix(in srgb, var(--mock) 28%, var(--hairline));
+}
+
+/* ============================================================
+   In-site site viewer (modal window with FLIP morph)
+   ============================================================ */
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 4vw, 48px);
+  visibility: hidden;
+  pointer-events: none;
+}
+.viewer.is-open { visibility: visible; pointer-events: auto; }
+
+.viewer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 1, 2, 0.55);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+}
+.viewer.is-open .viewer__backdrop {
+  opacity: 1;
+  backdrop-filter: saturate(160%) blur(10px);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+}
+.viewer.is-closing .viewer__backdrop {
+  opacity: 0;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+}
+
+.viewer__window {
+  position: relative;
+  width: min(1120px, 100%);
+  height: min(780px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.92);
+  will-change: transform;
+}
+.viewer__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding-inline: 14px;
+  flex-shrink: 0;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--hairline);
+}
+.viewer__url {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-subtle);
+  background: var(--canvas);
+  border-radius: var(--r-sm);
+  padding: 4px 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.viewer__open {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  color: var(--ink-subtle);
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--hairline);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.viewer__open:hover {
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+  background: var(--surface-3);
+}
+.viewer__close {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink-subtle);
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-sm);
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.viewer__close:hover {
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+  background: var(--surface-3);
+}
+.viewer .viewer__open,
+.viewer .viewer__close { cursor: pointer; }
+
+.viewer__frame-wrap {
+  flex: 1;
+  min-height: 0;
+  background: #fff;
+}
+.viewer__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+/* Beat Lenis' global `iframe { pointer-events: none }` so the embedded site is usable */
+.lenis.lenis-smooth .viewer__frame { pointer-events: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .viewer__window { will-change: auto; }
+}

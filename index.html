@@ -461,6 +461,22 @@
     </div>
   </footer>
 
+  <!-- In-site site viewer: opens real project sites in a window without leaving the page -->
+  <div class="viewer" id="siteViewer" aria-hidden="true">
+    <div class="viewer__backdrop" aria-hidden="true"></div>
+    <div class="viewer__window" role="dialog" aria-modal="true" aria-label="Project site preview">
+      <div class="viewer__bar">
+        <span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="viewer__url"></span>
+        <a class="viewer__open" href="#" target="_blank" rel="noopener noreferrer">Open full site ↗</a>
+        <button class="viewer__close" type="button" aria-label="Close preview">✕</button>
+      </div>
+      <div class="viewer__frame-wrap">
+        <iframe class="viewer__frame" title="Project site preview" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
